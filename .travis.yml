@@ -1,0 +1,30 @@
+# Developer:
+# ---------
+# Name:      Maik Ellerbrock
+# GitHub:    https://github.com/ellerbrock
+# Twitter:   https://twitter.com/frapsoft
+# Docker:    https://hub.docker.com/u/ellerbrock
+# Quay:      https://quay.io/user/ellerbrock
+#
+# Description:
+# -----------
+# Travis Test for our Docker Container
+#  - check if the docker build works
+#  - run certain tests with bats
+
+language: bash
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build --force-rm --no-cache -t ellerbrock/bash-it .
+  - sudo add-apt-repository ppa:duggan/bats --yes
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq bats
+
+script:
+  - bats test/bash-it.bats
+
