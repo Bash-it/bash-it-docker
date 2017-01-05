@@ -28,7 +28,8 @@ RUN \
   echo "[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion" \
     >> /root/.bashrc && \
   sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd # && \
-  apk del git
+  apk del git && \
+  rm -rf /tmp/*
 
 WORKDIR /root
 

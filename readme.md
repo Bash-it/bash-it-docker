@@ -11,7 +11,7 @@ _Bash Shell v.4.4 with bash-it, bats and bash-completion based on Alpine Linux_
 
 ## Info
 
-_Consider this Repository as Work in Progress._. 
+_Consider this Repository as Work in Progress._  
 
 You can find Documentation how to use and setup Bash-it in the [Main Repository](https://github.com/Bash-it/bash-it).  
 Please open only issues related to Docker in this Repository.
