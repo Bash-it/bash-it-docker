@@ -13,7 +13,8 @@
 
 FROM bash:4.4
 
-ENV VERSION 0.0.2
+ENV VERSION 0.0.3
+ENV DUMP_INIT_VERSION 1.2.0
 ENV SERVICE_USER bashit
 ENV SERVICE_HOME /home/${SERVICE_USER}
 
@@ -21,13 +22,17 @@ RUN \
   adduser -h ${SERVICE_HOME} -s /bin/bash -u 1000 -D ${SERVICE_USER} && \
   apk add --no-cache \
     bash-completion \
-    git && \
+    git \
+    openssl && \
   git clone --depth 1 https://github.com/Bash-it/bash-it.git ${SERVICE_HOME}/.bash_it && \
   git clone --depth 1 https://github.com/sstephenson/bats.git /tmp/bats && \
     /tmp/bats/install.sh /usr/local && \
+  wget -O /usr/local/bin/dumb-init \
+    https://github.com/Yelp/dumb-init/releases/download/v${DUMP_INIT_VERSION}/dumb-init_${DUMP_INIT_VERSION}_amd64 && \
+  chmod +x /usr/local/bin/dumb-init && \
   chown -R ${SERVICE_USER}:${SERVICE_USER} ${SERVICE_HOME} && \
   sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd && \
-  apk del git && \
+  apk del git openssl && \
   rm -rf /tmp/*
 
 USER ${SERVICE_USER}
@@ -42,5 +47,5 @@ RUN \
   echo -e "\n\n# Fix for grep without color support" >> ${SERVICE_HOME}/.bashrc && \
   echo "unalias grep" >> ${SERVICE_HOME}/.bashrc
 
-ENTRYPOINT [ "bash" ]
+ENTRYPOINT [ "/usr/local/bin/dumb-init", "--", "bash" ]
 

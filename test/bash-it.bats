@@ -34,7 +34,12 @@ run docker run -it ellerbrock/bash-it -c "[[ -d /usr/share/bash-completion ]]"
 }
 
 @test "check if we run as an unprivileged user" {
-run docker run -it ellerbrock/bash-it -c "[[ $(id -u) -ne 0 ]]"
+run docker run -it ellerbrock/bash-it -c "[[ ${UID} -ne 0 ]]"
+  [ "$status" -eq 0  ]
+}
+
+@test "check that the current process is greater then pid 1" {
+run docker run -it ellerbrock/bash-it -c "[[ ${$} -gt 1 ]]"
   [ "$status" -eq 0  ]
 }
 
