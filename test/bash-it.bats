@@ -24,12 +24,17 @@ run docker run -it ellerbrock/bash-it -c "[[ $(which bats)  ]]"
 }
 
 @test "check if the bash-it folder exists" {
-run docker run -it ellerbrock/bash-it -c "[[ -d /root/.bash_it ]]"
+run docker run -it ellerbrock/bash-it -c "[[ -d /home/bashit/.bash_it ]]"
   [ "$status" -eq 0  ]
 }
 
 @test "check if the bash-completion folder exists" {
 run docker run -it ellerbrock/bash-it -c "[[ -d /usr/share/bash-completion ]]"
+  [ "$status" -eq 0  ]
+}
+
+@test "check if we run as an unprivileged user" {
+run docker run -it ellerbrock/bash-it -c "[[ $(id -u) -ne 0 ]]"
   [ "$status" -eq 0  ]
 }
 
