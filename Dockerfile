@@ -21,12 +21,12 @@ RUN \
     git && \
   git clone --depth 1 https://github.com/Bash-it/bash-it.git /root/.bash_it && \
     /root/.bash_it/install.sh --silent && \
-    rm -rf /root/.bash_it/.git && \
   git clone --depth 1 https://github.com/sstephenson/bats.git /tmp/bats && \
     /tmp/bats/install.sh /usr/local && \
   echo -e "\n\n# Load bash-completion\n" >> /root/.bashrc && \
   echo "[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion" \
     >> /root/.bashrc && \
+  echo "unalias grep" >> /root/.bashrc && \
   sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd # && \
   apk del git && \
   rm -rf /tmp/*
