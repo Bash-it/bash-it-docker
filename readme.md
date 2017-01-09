@@ -2,7 +2,7 @@
 
 # bash-it-docker
 
-_Bash Shell v.4.4 with bash-it, bats and bash-completion based on Alpine Linux_ 
+_Bash Shell v4.4 with Bash-it, [bats](https://github.com/sstephenson/bats) and bash-completion based on [Alpine Linux](https://alpinelinux.org/)_ 
 
 [![Build Status](https://travis-ci.org/Bash-it/bash-it-docker.svg?branch=master)](https://travis-ci.org/Bash-it/bash-it-docker) [![Docker Automated Build](https://img.shields.io/docker/automated/ellerbrock/bash-it.svg)](https://hub.docker.com/r/ellerbrock/bash-it/) [![Docker Pulls](https://img.shields.io/docker/pulls/ellerbrock/bash-it.svg)](https://hub.docker.com/r/ellerbrock/bash-it/) [![Quay Status](https://quay.io/repository/ellerbrock/bash-it/status)](https://quay.io/repository/ellerbrock/bash-it) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg)](https://github.com/ellerbrock/open-source-badges/) [![Gitter Chat](https://badges.gitter.im/frapsoft/frapsoft.svg)](https://gitter.im/frapsoft/frapsoft/)
 
