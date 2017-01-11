@@ -28,7 +28,7 @@ Please open only issues related to Docker in this Repository.
 
 **Use your local `~/.bashrc` settings inside the Container (:ro for read only)**
 
-`docker run -it -v ~/.bashrc:/root/.bashrc:ro ellerbrock/bash-it`
+`docker run -it -v ~/.bashrc:/home/bashit/.bashrc:ro ellerbrock/bash-it`
 
 **Map the current directory inside the Container**
 
@@ -59,3 +59,7 @@ ellerbrock/bash-it -c "tar -cvjf /export/backup.tar.bz2 /import/"
 **Run a Command**
 
 `docker run -it ellerbrock/bash-it -c "ls -alF /"`
+
+**Run as root**
+
+`docker run -it -u root ellerbrock/bash-it`

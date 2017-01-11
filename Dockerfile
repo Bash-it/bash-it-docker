@@ -26,16 +26,21 @@ RUN \
     bash-completion \
     git \
     openssl && \
-  git clone --depth 1 https://github.com/Bash-it/bash-it.git ${SERVICE_HOME}/.bash_it && \
+  git clone --depth 1 https://github.com/Bash-it/bash-it.git /tmp/bash_it && \
+  cp -R /tmp/bash_it /root/.bash_it && \
+  cp -R /tmp/bash_it ${SERVICE_HOME}/.bash_it && \
+  /root/.bash_it/install.sh --silent && \
+  echo -e "\n# Load bash-completion\n[ -f /usr/share/bash-completion/bash_completion  ] && source /usr/share/bash-completion/bash_completion" >> /root/.bashrc && \
   git clone --depth 1 https://github.com/sstephenson/bats.git /tmp/bats && \
     /tmp/bats/install.sh /usr/local && \
   wget -O /usr/local/bin/dumb-init \
     https://github.com/Yelp/dumb-init/releases/download/v${DUMP_INIT_VERSION}/dumb-init_${DUMP_INIT_VERSION}_amd64 && \
   chmod +x /usr/local/bin/dumb-init && \
+  cp -R ${SERVICE_HOME}/.bash_it /root && \
   chown -R ${SERVICE_USER}:${SERVICE_USER} ${SERVICE_HOME} && \
   sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd && \
   apk del git openssl && \
-  rm -rf /tmp/*
+  rm -rf /tmp/{.}* /tmp/*
 
 USER ${SERVICE_USER}
 
@@ -43,9 +48,7 @@ WORKDIR ${SERVICE_HOME}
 
 RUN \
   ${SERVICE_HOME}/.bash_it/install.sh --silent && \
-  echo -e "\n\n# Load bash-completion" >> ${SERVICE_HOME}/.bashrc && \
-  echo "[ -f /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion" \
-    >> ${SERVICE_HOME}/.bashrc
+  echo -e "\n# Load bash-completion\n[ -f /usr/share/bash-completion/bash_completion  ] && source /usr/share/bash-completion/bash_completion" >> ${SERVICE_HOME}/.bashrc
 
-ENTRYPOINT [ "/usr/local/bin/dumb-init", "--", "bash" ]
+ENTRYPOINT [ "/usr/local/bin/dumb-init", "/bin/bash" ]
 
