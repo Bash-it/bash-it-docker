@@ -9,13 +9,13 @@
 #
 # Description:
 # -----------
-# Bash Shell v.4.4 with Bash-it, bats, bash-completion
+# Bash Shell v.5 with Bash-it, bats, bash-completion
 
-FROM bash:4.4
+FROM bash:5
 
 MAINTAINER Maik Ellerbrock
 
-ENV VERSION 0.0.5
+ENV VERSION 0.1.0
 
 # Optional Configuration Parameter
 ARG SYSTEM_TZ
