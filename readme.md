@@ -2,7 +2,7 @@
 
 # bash-it-docker
 
-_Bash Shell v.4.4 with [Bash-it](https://github.com/Bash-it/bash-it), [bats](https://github.com/sstephenson/bats) and [bash-completion](https://github.com/scop/bash-completion) based on [Alpine Linux](https://alpinelinux.org/) as unprivileged User_
+_Bash Shell v.5 with [Bash-it](https://github.com/Bash-it/bash-it), [bats](https://github.com/sstephenson/bats) and [bash-completion](https://github.com/scop/bash-completion) based on [Alpine Linux](https://alpinelinux.org/) as unprivileged User_
 
 [![Build Status](https://travis-ci.org/Bash-it/bash-it-docker.svg?branch=master)](https://travis-ci.org/Bash-it/bash-it-docker) [![Docker Automated Build](https://img.shields.io/docker/automated/ellerbrock/bash-it.svg)](https://hub.docker.com/r/ellerbrock/bash-it/) [![Docker Pulls](https://img.shields.io/docker/pulls/ellerbrock/bash-it.svg)](https://hub.docker.com/r/ellerbrock/bash-it/) [![Quay Status](https://quay.io/repository/ellerbrock/bash-it/status)](https://quay.io/repository/ellerbrock/bash-it) [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg)](https://github.com/ellerbrock/open-source-badges/) [![Gitter Chat](https://badges.gitter.im/frapsoft/frapsoft.svg)](https://gitter.im/Bash-it/bash-it/)
 
