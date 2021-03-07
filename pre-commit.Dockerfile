@@ -1,21 +1,16 @@
 # Developer:
 # ---------
-# Name:      Maik Ellerbrock
-#
-# GitHub:    https://github.com/ellerbrock
-# Twitter:   https://twitter.com/frapsoft
-# Docker:    https://hub.docker.com/u/ellerbrock
-# Quay:      https://quay.io/user/ellerbrock
+# Name:     Ron Green
 #
 # Description:
 # -----------
 # Bash Shell v.5 bats and deps for development
 
-FROM bash:5
+FROM fedora
 
-MAINTAINER Maik Ellerbrock
+MAINTAINER Noah Gorny
 
-ENV VERSION 0.1.0
+ENV VERSION 0.2.0
 
 # Optional Configuration Parameter
 ARG SYSTEM_TZ
@@ -26,35 +21,27 @@ ENV SYSTEM_TZ ${SYSTEM_TZ:-Europe/Berlin}
 ENV SERVICE_USER bashit
 ENV SERVICE_HOME /home/${SERVICE_USER}
 
+RUN dnf install --assumeyes \
+		ShellCheck \
+		golang \
+		pip \
+		python \
+		python-devel \
+		dumb-init \
+	&& \
+	dnf clean all
+RUN pip3 install pre-commit
+
 # Configure Go
-ENV GOROOT /usr/lib/go
-ENV GOPATH ${SERVICE_HOME}/go
+RUN GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt && \
+    ln -s ~/bin/shfmt /usr/local/bin
 
-RUN \
-  adduser -h ${SERVICE_HOME} -s /bin/bash -u 1000 -D ${SERVICE_USER} && \
-  apk add --no-cache \
-    dumb-init \
-    git \
-    go \
-    py3-pip \
-    python3 \ 
-    python3-dev \
-    shellcheck \ 
-    tzdata && \
+# create a local user so we don't use ROOT
+RUN adduser --home-dir=${SERVICE_HOME} --shell=/bin/bash -u 1000 ${SERVICE_USER} && \
   cp /usr/share/zoneinfo/${SYSTEM_TZ} /etc/localtime && \
-  echo "${SYSTEM_TZ}" > /etc/TZ && \
-  pip3 install pre-commit && \
-  GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt && \
-    ln -s ${GOPATH}/bin/shfmt /usr/local/bin \ 
-  git clone --depth 1 https://github.com/sstephenson/bats.git /tmp/bats && \
-    /tmp/bats/install.sh /usr/local && \
   chown -R ${SERVICE_USER}:${SERVICE_USER} ${SERVICE_HOME} && \
-  sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd && \
-  apk del git tzdata && \
-  rm -rf /tmp/{.}* /tmp/*
-
+  sed -i -e "s/bin\/ash/bin\/bash/" /etc/passwd
 USER ${SERVICE_USER}
-
 WORKDIR ${SERVICE_HOME}
 
 ENTRYPOINT [ "/usr/bin/dumb-init", "bash" ]
