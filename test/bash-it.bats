@@ -13,7 +13,7 @@
 # -----------
 # Simple test with bats
 
-@test "check if we can execute bash inside the container" {
+@test "check if we can execute bash-it inside the container" {
 run docker run -it ellerbrock/bash-it --help
   [ "$status" -eq 0  ]
 }
