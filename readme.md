@@ -38,11 +38,11 @@ To prevent zombie reaping processes i run [dumb-init](https://github.com/Yelp/du
 
 **Map the current directory inside the Container**
 
-`docker run -it ${PWD}:/data ellerbrock/bash-it`
+`docker run -it -v ${PWD}:/data ellerbrock/bash-it`
 
 **Map a [Docker Volume](https://docs.docker.com/engine/tutorials/dockervolumes/)**
 
-`docker run -it myVolName:/app ellerbrock/bash-it`
+`docker run -it -v myVolName:/app ellerbrock/bash-it`
 
 **Copy Data between Volumes**
 
